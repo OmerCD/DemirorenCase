@@ -1,4 +1,4 @@
-namespace DemirorenCase.LoggerWorkerService.ValueObjects
+namespace DemirorenCase.Core.ValueObjects
 {
     public class RabbitMqOptions
     {

@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DemirorenCase.API.Extensions;
+using DemirorenCase.API.Middleware;
 using DemirorenCase.Common.IoC;
+using DemirorenCase.Common.Services;
+using DemirorenCase.Core.Abstractions;
+using DemirorenCase.Core.ValueObjects;
 using DemirorenCase.Domain.Commands.Authentication;
 using DemirorenCase.Domain.Queries.Authentication;
 using DemirorenCase.Infrastructure.Abstractions.Core;
+using DemirorenCase.Infrastructure.Abstractions.Services;
 using DemirorenCase.Infrastructure.Abstractions.ValueObjects;
 using DemirorenCase.Infrastructure.Extensions;
 using Mapster;
@@ -21,6 +26,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 namespace DemirorenCase.API
@@ -48,6 +54,12 @@ namespace DemirorenCase.API
             services.AddIdentityServerHttpClient(Configuration["IdentityServer:BaseAddress"]);
             services.Configure<IdentityServerOptions>(Configuration.GetSection("IdentityServer"));
             services.AddAuthentication(identityAddress: Configuration["IdentityServer:BaseAddress"]);
+            services.Configure<RabbitMqOptions>(Configuration.GetSection("RabbitMq"));
+            services.AddSingleton<IRabbitQueue<ILog>>(provider =>
+            {
+                var options = provider.GetService<IOptions<RabbitMqOptions>>().Value;
+                return new RabbitQueue<ILog>(options.Address, options.UserName, options.Password, options.QueueName);
+            });
             services.AddApiVersioning(options =>
             {
                 options.AssumeDefaultVersionWhenUnspecified = true;
@@ -73,6 +85,7 @@ namespace DemirorenCase.API
 
             app.UseRouting();
 
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
             app.UseAuthentication();
             app.UseAuthorization();
 

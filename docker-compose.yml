@@ -74,4 +74,8 @@ services:
         - "4369:4369/tcp"
         - "5671:5671/tcp"
         - "5672:5672/tcp"
-
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.1
+    ports: 
+      - 9200:9200
+      - 9300:9300

@@ -1,32 +1,28 @@
 using System;
 using System.Threading.Tasks;
+using DemirorenCase.Infrastructure.Abstractions.Services;
 using MassTransit;
 
 namespace DemirorenCase.Common.Services
 {
-    public interface IRabbitQueue<T> where T : class
-    {
-        void InitConnection(string url, string userName, string password, string queueName);
-        void Start();
-        void Publish(T input);
-    }
     public class RabbitQueue<T> : IRabbitQueue<T> where T : class
     {
-        private IBusControl control;
-        private Action<T> act;
+        private IBusControl _control;
+        private Action<T> _act;
 
-        public RabbitQueue()
+        public RabbitQueue(string url, string userName, string password, string queueName)
         {
-
+            InitConnection(url, userName, password, queueName);
         }
+
         public RabbitQueue(Action<T> act)
         {
-            this.act = act;
-
+            this._act = act;
         }
+
         public void InitConnection(string url, string userName, string password, string queueName)
         {
-            control = Bus.Factory.CreateUsingRabbitMq(cfg =>
+            _control = Bus.Factory.CreateUsingRabbitMq(cfg =>
             {
                 cfg.Host(new Uri(url), h =>
                 {
@@ -36,27 +32,31 @@ namespace DemirorenCase.Common.Services
                 cfg.ReceiveEndpoint(queueName, x => x.Handler<T>(HandlerMethod));
             });
         }
+
         public void Start()
         {
-            if (control != null)
+            if (_control != null)
             {
-                control.Start();
+                _control.Start();
             }
         }
+
         private Task HandlerMethod(ConsumeContext<T> context)
         {
-            this.act(context.Message);
+            this._act(context.Message);
             return Task.CompletedTask;
         }
+
         public void SetConsumer(Action<T> act)
         {
-            this.act = act;
+            this._act = act;
         }
+
         public void Publish(T input)
         {
-            if (control != null)
+            if (_control != null)
             {
-                control.Publish(input);
+                _control.Publish(input);
             }
         }
     }

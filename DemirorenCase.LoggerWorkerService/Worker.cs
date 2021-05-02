@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DemirorenCase.Core.Abstractions;
-using DemirorenCase.LoggerWorkerService.ValueObjects;
+using DemirorenCase.Core.ValueObjects;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -24,8 +24,7 @@ namespace DemirorenCase.LoggerWorkerService
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var imageFileQueue = new LogQueue();
-            imageFileQueue.InitConnection(_rabbitMqOptions.Address, _rabbitMqOptions.UserName, _rabbitMqOptions.Password, _rabbitMqOptions.QueueName);
+            var imageFileQueue = new LogQueue(_rabbitMqOptions.Address, _rabbitMqOptions.UserName, _rabbitMqOptions.Password, _rabbitMqOptions.QueueName);
             imageFileQueue.Start();
             imageFileQueue.SetConsumer(Consume);
     
