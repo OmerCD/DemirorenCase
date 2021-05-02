@@ -1,6 +1,6 @@
 using DemirorenCase.Core.Abstractions;
 
-namespace DemirorenCase.LoggerWorkerService.ValueObjects
+namespace DemirorenCase.API.ValueObjects
 {
     public class Log : ILog
     {
