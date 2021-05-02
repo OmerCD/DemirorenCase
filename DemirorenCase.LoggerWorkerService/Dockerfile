@@ -9,7 +9,7 @@ ENV ASPNETCORE_URLS=http://+:2018
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
 USER appuser
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0-focal AS build
 WORKDIR /src
 COPY ["DemirorenCase.LoggerWorkerService/DemirorenCase.LoggerWorkerService.csproj", "DemirorenCase.LoggerWorkerService/"]
 RUN dotnet restore "DemirorenCase.LoggerWorkerService/DemirorenCase.LoggerWorkerService.csproj"

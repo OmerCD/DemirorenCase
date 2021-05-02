@@ -9,7 +9,7 @@ ENV ASPNETCORE_URLS=http://+:5000
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
 USER appuser
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0-focal AS build
 WORKDIR /src
 COPY ["DemirorenCase.API/DemirorenCase.API.csproj", "DemirorenCase.API/"]
 RUN dotnet restore "DemirorenCase.API/DemirorenCase.API.csproj"
