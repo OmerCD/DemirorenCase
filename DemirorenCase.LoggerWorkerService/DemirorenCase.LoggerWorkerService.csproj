@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <UserSecretsId>dotnet-DemirorenCase.LoggerWorkerService-5E24D5C1-A6D2-4226-8DCE-FD976A0FD372</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DemirorenCase.Common\DemirorenCase.Common.csproj" />
+      <ProjectReference Include="..\DemirorenCase.Core\DemirorenCase.Core.csproj" />
+    </ItemGroup>
+</Project>

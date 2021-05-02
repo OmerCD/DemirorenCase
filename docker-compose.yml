@@ -1,0 +1,77 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+  demirorencaseapi:
+    image: demirorencaseapi
+    build:
+      context: .
+      dockerfile: DemirorenCase.API/Dockerfile
+    ports:
+      - 5000
+    depends_on: 
+      - demirorencaseidentityserver
+      - mongo
+      - redis
+      - consul
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Docker
+  demirorencaseidentityserver:
+    image: demirorencaseidentityserver
+    build:
+      context: .
+      dockerfile: DemirorenCase.IdentityServer/Dockerfile
+    ports:
+      - 7016
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Docker
+    depends_on: 
+      - redis
+      - consul
+      - postgres
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo
+  redis:
+    image: redis
+    ports: 
+        - "6378:6378"
+  consul:
+    image: consul
+    ports: 
+        - "8300:8300/tcp"
+        - "8301:8301/tcp"
+        - "8301:8301/udp"
+        - "8302:8302/tcp"
+        - "8302:8302/udp"
+        - "8500:8500/tcp"
+        - "8600:8600/tcp"
+        - "8600:8600/udp"
+  postgres:
+    image: postgres
+    ports: 
+        - "5432:5432"
+    environment: 
+        - POSTGRES_PASSWORD=123456
+        - POSTGRES_USER=root
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+        - "15671:15671/tcp"
+        - "15672:15672/tcp"
+        - "15691:15691/tcp"
+        - "15692:15692/tcp"
+        - "25672:25672/tcp"
+        - "4369:4369/tcp"
+        - "5671:5671/tcp"
+        - "5672:5672/tcp"
+

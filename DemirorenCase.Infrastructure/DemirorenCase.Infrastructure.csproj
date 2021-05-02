@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DemirorenCase.Core\DemirorenCase.Core.csproj" />
+      <ProjectReference Include="..\DemirorenCase.Infrastructure.Abstractions\DemirorenCase.Infrastructure.Abstractions.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="IdentityModel" Version="5.1.0" />
+      <PackageReference Include="Mapster" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+      <PackageReference Include="MongoDB.Driver" Version="2.12.2" />
+      <PackageReference Include="MongoDB.Driver.Core" Version="2.12.2" />
+    </ItemGroup>
+
+</Project>

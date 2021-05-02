@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
+        <PackageReference Include="MediatR" Version="9.0.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+        <PackageReference Include="MongoDB.Driver" Version="2.12.2" />
+        <PackageReference Include="Scrutor" Version="3.3.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+        <PackageReference Include="Winton.Extensions.Configuration.Consul" Version="3.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DemirorenCase.Common\DemirorenCase.Common.csproj" />
+      <ProjectReference Include="..\DemirorenCase.Contract\DemirorenCase.Contract.csproj" />
+      <ProjectReference Include="..\DemirorenCase.Domain\DemirorenCase.Domain.csproj" />
+      <ProjectReference Include="..\DemirorenCase.Infrastructure\DemirorenCase.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

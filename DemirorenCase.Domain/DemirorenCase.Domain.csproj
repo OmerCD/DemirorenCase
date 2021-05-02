@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Notifications" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="IdentityModel" Version="5.1.0" />
+      <PackageReference Include="Mapster" Version="5.0.0" />
+      <PackageReference Include="MediatR" Version="9.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DemirorenCase.IdentityServer.Models\DemirorenCase.IdentityServer.Models.csproj" />
+      <ProjectReference Include="..\DemirorenCase.Infrastructure.Abstractions\DemirorenCase.Infrastructure.Abstractions.csproj" />
+    </ItemGroup>
+
+</Project>

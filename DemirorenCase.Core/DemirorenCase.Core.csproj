@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Bson" Version="2.12.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DemirorenCase.Infrastructure.Abstractions\DemirorenCase.Infrastructure.Abstractions.csproj" />
+    </ItemGroup>
+</Project>
