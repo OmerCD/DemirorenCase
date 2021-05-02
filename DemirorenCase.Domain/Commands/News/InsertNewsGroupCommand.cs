@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using DemirorenCase.Domain.Exceptions;
 using DemirorenCase.Infrastructure.Abstractions.DTO.News;
 using DemirorenCase.Infrastructure.Abstractions.Services;
 using MapsterMapper;
@@ -28,8 +29,12 @@ namespace DemirorenCase.Domain.Commands.News
         public async  Task<InsertNewsGroupResponse> Handle(InsertNewsGroupCommand request, CancellationToken cancellationToken)
         {
             var dto = _mapper.Map<InsertNewsToGroupDto>(request);
-            var getInsertDto =await _newsService.InsertNewsToGroupAsync(dto, cancellationToken);
-            return new InsertNewsGroupResponse(getInsertDto.Id);
+            var result =await _newsService.InsertNewsToGroupAsync(dto, cancellationToken);
+            if (!result.IsSuccessful)
+            {
+                throw new NewsOrderException(result.Error);
+            }
+            return new InsertNewsGroupResponse(result.NewsGroupDto.Id);
 
         }
     }

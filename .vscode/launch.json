@@ -33,7 +33,7 @@
             "request": "launch",
             "preLaunchTask": "docker-run: debug",
             "netCore": {
-                "appProject": "${workspaceFolder}/DemirorenCase.IdentityServer/DemirorenCase.IdentityServer.csproj"
+                "appProject": "${workspaceFolder}/DemirorenCase.LoggerWorkerService/DemirorenCase.LoggerWorkerService.csproj"
             }
         }
     ]

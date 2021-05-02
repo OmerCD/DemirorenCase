@@ -23,7 +23,6 @@ namespace DemirorenCase.API.Middleware
         {
             try
             {
-                throw new Exception("Hello");
                 await _next(context);
             }
             catch (Exception e)

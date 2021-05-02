@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemirorenCase.Infrastructur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemirorenCase.LoggerWorkerService", "DemirorenCase.LoggerWorkerService\DemirorenCase.LoggerWorkerService.csproj", "{541BBA8C-31AE-4BBB-9756-5101C2709EDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemirorenCase.Infrastructure.Tests", "DemirorenCase.Infrastructure.Tests\DemirorenCase.Infrastructure.Tests.csproj", "{949C62AD-53A0-4F3A-AAC7-7757124A8936}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,5 +68,9 @@ Global
 		{541BBA8C-31AE-4BBB-9756-5101C2709EDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{541BBA8C-31AE-4BBB-9756-5101C2709EDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{541BBA8C-31AE-4BBB-9756-5101C2709EDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{949C62AD-53A0-4F3A-AAC7-7757124A8936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{949C62AD-53A0-4F3A-AAC7-7757124A8936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{949C62AD-53A0-4F3A-AAC7-7757124A8936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{949C62AD-53A0-4F3A-AAC7-7757124A8936}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

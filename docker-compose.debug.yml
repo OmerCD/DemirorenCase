@@ -3,13 +3,13 @@
 version: '3.4'
 
 services:
-  demirorencaseidentityserver:
-    image: demirorencaseidentityserver
+  demirorencaseloggerworkerservice:
+    image: demirorencaseloggerworkerservice
     build:
       context: .
-      dockerfile: DemirorenCase.IdentityServer/Dockerfile
+      dockerfile: DemirorenCase.LoggerWorkerService/Dockerfile
     ports:
-      - 7016
+      - 2018
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     volumes:

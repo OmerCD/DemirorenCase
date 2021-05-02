@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using DemirorenCase.Domain.Exceptions;
 using DemirorenCase.Infrastructure.Abstractions.DTO.News;
 using DemirorenCase.Infrastructure.Abstractions.Services;
 using MapsterMapper;
@@ -30,8 +31,9 @@ namespace DemirorenCase.Domain.Commands.News
     public record AddNewsToGroupNewsItemCommandResponse
     {
         public string Id { get; set; }
-        public string Name { get; set; }
-        public string LastName { get; set; }
+        public string Headline { get; set; }
+        public string Description { get; set; }
+        public string Link { get; set; }
         public DateTime CreateDate { get; set; }
         public bool IsDeleted { get; set; }
     }
@@ -51,7 +53,11 @@ namespace DemirorenCase.Domain.Commands.News
         {
             var dto = _mapper.Map<InsertNewsToGroupDto>(request);
             var getNewsGroupDto = await _newsService.InsertNewsToGroupAsync(dto, cancellationToken);
-            return _mapper.Map<AddNewsToGroupCommandResponse>(getNewsGroupDto);
+            if (!getNewsGroupDto.IsSuccessful)
+            {
+                throw new NewsOrderException(getNewsGroupDto.Error);
+            }
+            return _mapper.Map<AddNewsToGroupCommandResponse>(getNewsGroupDto.NewsGroupDto);
         }
     }
 }

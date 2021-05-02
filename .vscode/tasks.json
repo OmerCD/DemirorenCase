@@ -47,12 +47,12 @@
             "dockerBuild": {
                 "tag": "demirorencase:dev",
                 "target": "base",
-                "dockerfile": "${workspaceFolder}/DemirorenCase.IdentityServer/Dockerfile",
+                "dockerfile": "${workspaceFolder}/DemirorenCase.LoggerWorkerService/Dockerfile",
                 "context": "${workspaceFolder}",
                 "pull": true
             },
             "netCore": {
-                "appProject": "${workspaceFolder}/DemirorenCase.IdentityServer/DemirorenCase.IdentityServer.csproj"
+                "appProject": "${workspaceFolder}/DemirorenCase.LoggerWorkerService/DemirorenCase.LoggerWorkerService.csproj"
             }
         },
         {
@@ -63,12 +63,12 @@
             ],
             "dockerBuild": {
                 "tag": "demirorencase:latest",
-                "dockerfile": "${workspaceFolder}/DemirorenCase.IdentityServer/Dockerfile",
+                "dockerfile": "${workspaceFolder}/DemirorenCase.LoggerWorkerService/Dockerfile",
                 "context": "${workspaceFolder}",
                 "pull": true
             },
             "netCore": {
-                "appProject": "${workspaceFolder}/DemirorenCase.IdentityServer/DemirorenCase.IdentityServer.csproj"
+                "appProject": "${workspaceFolder}/DemirorenCase.LoggerWorkerService/DemirorenCase.LoggerWorkerService.csproj"
             }
         },
         {
@@ -79,7 +79,7 @@
             ],
             "dockerRun": {},
             "netCore": {
-                "appProject": "${workspaceFolder}/DemirorenCase.IdentityServer/DemirorenCase.IdentityServer.csproj",
+                "appProject": "${workspaceFolder}/DemirorenCase.LoggerWorkerService/DemirorenCase.LoggerWorkerService.csproj",
                 "enableDebugging": true
             }
         },
@@ -91,7 +91,7 @@
             ],
             "dockerRun": {},
             "netCore": {
-                "appProject": "${workspaceFolder}/DemirorenCase.IdentityServer/DemirorenCase.IdentityServer.csproj"
+                "appProject": "${workspaceFolder}/DemirorenCase.LoggerWorkerService/DemirorenCase.LoggerWorkerService.csproj"
             }
         }
     ]

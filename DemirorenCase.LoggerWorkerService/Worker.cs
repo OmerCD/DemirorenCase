@@ -5,9 +5,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using DemirorenCase.Core.Abstractions;
 using DemirorenCase.Core.ValueObjects;
+using DemirorenCase.LoggerWorkerService.ValueObjects;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Nest;
+using Newtonsoft.Json;
 
 namespace DemirorenCase.LoggerWorkerService
 {
@@ -15,11 +18,13 @@ namespace DemirorenCase.LoggerWorkerService
     {
         private readonly ILogger<Worker> _logger;
         private readonly RabbitMqOptions _rabbitMqOptions;
+        private readonly IElasticClient _elasticClient;
 
-        public Worker(ILogger<Worker> logger, IOptions<RabbitMqOptions> options)
+        public Worker(ILogger<Worker> logger, IOptions<RabbitMqOptions> rabbitOptions, IElasticClient elasticClient)
         {
             _logger = logger;
-            _rabbitMqOptions = options.Value;
+            _elasticClient = elasticClient;
+            _rabbitMqOptions = rabbitOptions.Value;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -35,9 +40,14 @@ namespace DemirorenCase.LoggerWorkerService
                 await Task.Delay(10000, stoppingToken);
             }
         }
-        private static void Consume(ILog obj)
+        private void Consume(ILog obj)
         {
-            Console.WriteLine(obj.Message);
+            _elasticClient.Index(obj, descriptor => descriptor.Index("log"));
+        }
+        private class Log : ILog
+        {
+            public string Message { get; set; }
+            public DateTime MessageDate { get; set; }
         }
     }
-}
+} 

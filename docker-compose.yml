@@ -9,12 +9,13 @@ services:
       context: .
       dockerfile: DemirorenCase.API/Dockerfile
     ports:
-      - 5000
+      - 5000:5000
     depends_on: 
       - demirorencaseidentityserver
       - mongo
       - redis
       - consul
+      - demirorencaseloggerworkerservice
     environment: 
       - ASPNETCORE_ENVIRONMENT=Docker
   demirorencaseidentityserver:
@@ -23,11 +24,10 @@ services:
       context: .
       dockerfile: DemirorenCase.IdentityServer/Dockerfile
     ports:
-      - 7016
+      - 7016:7016
     environment: 
       - ASPNETCORE_ENVIRONMENT=Docker
     depends_on: 
-      - redis
       - consul
       - postgres
   mongo:
@@ -45,6 +45,7 @@ services:
     image: redis
     ports: 
         - "6378:6378"
+        - "6379:6379"
   consul:
     image: consul
     ports: 
@@ -75,7 +76,19 @@ services:
         - "5671:5671/tcp"
         - "5672:5672/tcp"
   elastic:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.1
+    image: blacktop/elasticsearch
     ports: 
       - 9200:9200
       - 9300:9300
+  demirorencaseloggerworkerservice:
+    image: demirorencaseloggerworkerservice
+    build:
+      context: .
+      dockerfile: DemirorenCase.LoggerWorkerService/Dockerfile
+    ports:
+      - 2018
+    depends_on: 
+      - elastic
+      - consul
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Docker

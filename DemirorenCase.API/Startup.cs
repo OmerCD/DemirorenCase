@@ -14,6 +14,8 @@ using DemirorenCase.Infrastructure.Abstractions.Core;
 using DemirorenCase.Infrastructure.Abstractions.Services;
 using DemirorenCase.Infrastructure.Abstractions.ValueObjects;
 using DemirorenCase.Infrastructure.Extensions;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Mapster;
 using MapsterMapper;
 using MediatR;
@@ -48,13 +50,17 @@ namespace DemirorenCase.API
             services.AddMediatR(typeof(Domain.Domain));
             services.AddMapper();
             services.AddServices();
-            services.Configure<MongoInfo>(Configuration.GetSection("Mongo"));
             services.AddBaseRepositories();
             services.AddMongoClient(Configuration.GetConnectionString("MongoDb"));
             services.AddIdentityServerHttpClient(Configuration["IdentityServer:BaseAddress"]);
-            services.Configure<IdentityServerOptions>(Configuration.GetSection("IdentityServer"));
             services.AddAuthentication(identityAddress: Configuration["IdentityServer:BaseAddress"]);
+            services.Configure<MongoInfo>(Configuration.GetSection("Mongo"));
             services.Configure<RabbitMqOptions>(Configuration.GetSection("RabbitMq"));
+            services.Configure<IdentityServerOptions>(Configuration.GetSection("IdentityServer"));
+            services.Configure<RedisOptions>(Configuration.GetSection("Redis"));
+            services.AddRedisClient();
+            services.AddMvc().AddFluentValidation(configuration =>
+                configuration.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddSingleton<IRabbitQueue<ILog>>(provider =>
             {
                 var options = provider.GetService<IOptions<RabbitMqOptions>>().Value;
@@ -65,10 +71,7 @@ namespace DemirorenCase.API
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.ApiVersionReader = new UrlSegmentApiVersionReader();
             });
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "DemirorenCase.API", Version = "v1"});
-            });
+            services.AddSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
